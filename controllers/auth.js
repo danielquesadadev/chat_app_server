@@ -74,7 +74,7 @@ const login = async ( req, res = response ) => {
 
         res.json({
             ok: true,
-            body: usuarioDB,
+            usuario: usuarioDB,
             token
         });
 
