@@ -31,7 +31,7 @@ const createUser = async ( req, res = response ) => {
 
         res.json({
             ok: true,
-            usuario: user,
+            user: user,
             token
         });
 
@@ -71,10 +71,10 @@ const login = async ( req, res = response ) => {
 
         const token = await generateJWT(usuarioDB.uid) ;
 
-
+        console.log('User logged:', usuarioDB);
         res.json({
             ok: true,
-            usuario: usuarioDB,
+            user: usuarioDB,
             token
         });
 
