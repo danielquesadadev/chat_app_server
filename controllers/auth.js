@@ -51,16 +51,16 @@ const login = async ( req, res = response ) => {
     
     try {
         
-        const usuarioDB = await User.findOne({ email });
+        const user = await User.findOne({ email });
     
-        if (!usuarioDB) {
+        if (!user) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Email no encontrado'
             });
         }
 
-        const validPassword = bcrypt.compareSync(password, usuarioDB.password);
+        const validPassword = bcrypt.compareSync(password, user.password);
 
         if(!validPassword){
             return res.status(400).json({
@@ -69,12 +69,12 @@ const login = async ( req, res = response ) => {
             });
         }
 
-        const token = await generateJWT(usuarioDB.uid) ;
+        const token = await generateJWT(user.id) ;
 
-        console.log('User logged:', usuarioDB);
+        console.log('User logged:', user);
         res.json({
             ok: true,
-            user: usuarioDB,
+            user: user,
             token
         });
 
@@ -110,7 +110,6 @@ const renewToken = async ( req, res = response) => {
             msg: 'Error al obtener el usuario.'
         });
     }
-    
 };
 
 module.exports = {
